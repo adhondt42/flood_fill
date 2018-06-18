@@ -6,7 +6,7 @@
 /*   By: adhondt <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 17:04:13 by adhondt           #+#    #+#             */
-/*   Updated: 2018/06/18 18:35:20 by adhondt          ###   ########.fr       */
+/*   Updated: 2018/06/18 20:42:51 by adhondt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	ft_puttab(char **tab)
 
 void	fill(char **tab, int x, int y, char f, int ymax)
 {
-	if (x < 0 || y < 0 || f == 'F')
+	if (x < 0 || y < 0 || y >= ymax || f == 'F')
 		return ;
 	if (tab[y][x] == f)
 		tab[y][x] = 'F';
-	if (tab[y][x + 1] == f)
+	if (tab[y][x + 1] != '\0' && tab[y][x + 1] == f)
 		fill(tab, x + 1, y, f, ymax);
 	if (x - 1 >= 0 && tab[y][x - 1] == f)
 		fill(tab, x - 1, y, f, ymax);
@@ -55,7 +55,7 @@ void	flood_fill(char **tab, t_point size, t_point begin)
 
 	if (begin.y < 0 || begin.x < 0)
 		return ;
-	if (begin.y > size.y || begin.x > size.x)
+	if (begin.y >= size.y || begin.x >= size.x)
 		return ;
 	x = begin.x;
 	y = begin.y;
@@ -99,7 +99,7 @@ int main(void)
 	};
 */
 	t_point size = { 7, 5 };
-	t_point begin = { 1, 0};
+	t_point begin = { 6, 4};
 	char *zone[] = {
 		"0400040",
 		"0404040",
@@ -112,13 +112,13 @@ int main(void)
 	flood_fill(area, size, begin);
 	write(1, "\n", 1);
 	ft_puttab(area);
-	t_point begin2 = { 2, 4};
-	flood_fill(area, size, begin2);
-	write(1, "\n", 1);
-	ft_puttab(area);
-	t_point begin3 = { 6, 4};
-	flood_fill(area, size, begin3);
-	write(1, "\n", 1);
-	ft_puttab(area);
+//	t_point begin2 = { 2, 4};
+//	flood_fill(area, size, begin2);
+//	write(1, "\n", 1);
+//	ft_puttab(area);
+//	t_point begin3 = { 6, 4};
+//	flood_fill(area, size, begin3);
+//	write(1, "\n", 1);
+//	ft_puttab(area);
 	return (0);
 }
