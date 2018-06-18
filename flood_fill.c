@@ -6,12 +6,13 @@
 /*   By: adhondt <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 17:04:13 by adhondt           #+#    #+#             */
-/*   Updated: 2018/06/18 17:09:50 by adhondt          ###   ########.fr       */
+/*   Updated: 2018/06/18 18:35:20 by adhondt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include "stdio.h"
 #include "t_point.h"
 
 void	ft_puttab(char **tab)
@@ -32,7 +33,7 @@ void	ft_puttab(char **tab)
 
 void	fill(char **tab, int x, int y, char f, int ymax)
 {
-	if (x < 0 || y < 0)
+	if (x < 0 || y < 0 || f == 'F')
 		return ;
 	if (tab[y][x] == f)
 		tab[y][x] = 'F';
@@ -52,12 +53,12 @@ void	flood_fill(char **tab, t_point size, t_point begin)
 	int	y;
 	char f;
 
-	if (begin.y < 1 || begin.x < 1)
+	if (begin.y < 0 || begin.x < 0)
 		return ;
 	if (begin.y > size.y || begin.x > size.x)
 		return ;
-	x = begin.x - 1;
-	y = begin.y - 1;
+	x = begin.x;
+	y = begin.y;
 	f = tab[y][x];
 	fill(tab, x, y, f, size.y);
 	return ;
@@ -86,8 +87,9 @@ char	**make_area(char **zone, int x, int y)
 int main(void)
 {
 	char **area;
+/*
 	t_point size = { 8, 5 };
-	t_point begin = { 8, 5 };
+	t_point begin = { 2, 4 };
 	char *zone[] = {
 		"11111111",
 		"10001001",
@@ -95,10 +97,27 @@ int main(void)
 		"10110001",
 		"11100001"
 	};
-
+*/
+	t_point size = { 7, 5 };
+	t_point begin = { 1, 0};
+	char *zone[] = {
+		"0400040",
+		"0404040",
+		"0404040",
+		"0404040",
+		"0404040"
+	};
 	area = make_area(zone, size.x, size.y);
 	ft_puttab(area);
 	flood_fill(area, size, begin);
+	write(1, "\n", 1);
+	ft_puttab(area);
+	t_point begin2 = { 2, 4};
+	flood_fill(area, size, begin2);
+	write(1, "\n", 1);
+	ft_puttab(area);
+	t_point begin3 = { 6, 4};
+	flood_fill(area, size, begin3);
 	write(1, "\n", 1);
 	ft_puttab(area);
 	return (0);
