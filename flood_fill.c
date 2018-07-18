@@ -87,17 +87,7 @@ char	**make_area(char **zone, int x, int y)
 int main(void)
 {
 	char **area;
-/*
-	t_point size = { 8, 5 };
-	t_point begin = { 2, 4 };
-	char *zone[] = {
-		"11111111",
-		"10001001",
-		"10010001",
-		"10110001",
-		"11100001"
-	};
-*/
+
 	t_point size = { 7, 5 };
 	t_point begin = { 6, 4};
 	char *zone[] = {
@@ -112,13 +102,5 @@ int main(void)
 	flood_fill(area, size, begin);
 	write(1, "\n", 1);
 	ft_puttab(area);
-//	t_point begin2 = { 2, 4};
-//	flood_fill(area, size, begin2);
-//	write(1, "\n", 1);
-//	ft_puttab(area);
-//	t_point begin3 = { 6, 4};
-//	flood_fill(area, size, begin3);
-//	write(1, "\n", 1);
-//	ft_puttab(area);
 	return (0);
 }
